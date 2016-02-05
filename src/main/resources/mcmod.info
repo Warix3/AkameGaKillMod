@@ -1,0 +1,16 @@
+[
+{
+  "modid": "agkm",
+  "name": "Akame Ga Kill Mod (AGK MOD)",
+  "description": "This is a mod based on Akame Ga Kill anime. Introducing new weapons and mobs.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "warixmods.ga",
+  "updateUrl": "warixmods.ga",
+  "authorList": ["Warix"],
+  "credits": "Warix",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

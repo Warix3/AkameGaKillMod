@@ -1,0 +1,11 @@
+{
+    "variants": {
+
+"facing=down":  { "model": "agkm:gckey_stab", "x": 180 },
+"facing=up":    { "model": "agkm:gckey_stab" },
+"facing=north": { "model": "agkm:gckey_stab" },
+"facing=south": { "model": "agkm:gckey_stab", "y": 180 },
+"facing=west":  { "model": "agkm:gckey_stab", "y": 270 },
+"facing=east":  { "model": "agkm:gckey_stab", "y": 90 }
+        }
+}

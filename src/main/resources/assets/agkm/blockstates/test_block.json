@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": {"model": "agkm:test_block"}
+        }
+}
