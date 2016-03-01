@@ -9,20 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ItemPerfector extends Item{
+public class ItemPerfector extends ItemTeigu{
 	
-	@Override
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-    {
 
-   if(!stack.hasTagCompound())
-   {
-	   NBTTagCompound nbt = new NBTTagCompound();
-	   stack.setTagCompound(nbt);
-	   nbt.setInteger("id",0);
-	   nbt.setString("Type","Teigu");
-   }	
-    }
 	@Override
 	  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	    {

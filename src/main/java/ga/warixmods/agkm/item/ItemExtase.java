@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 
-public class ItemExtase extends ItemSword{
+public class ItemExtase extends ItemTeiguSword{
 
 	public ItemExtase(ToolMaterial material) {
 		super(material);

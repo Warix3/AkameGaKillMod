@@ -1,4 +1,6 @@
 package ga.warixmods.agkm.init;
+import java.util.HashMap;
+
 import ga.warixmods.agkm.AkameGaKill;
 import ga.warixmods.agkm.Reference;
 import ga.warixmods.agkm.item.ItemBelvaac;
@@ -6,7 +8,7 @@ import ga.warixmods.agkm.item.ItemBelvaacPart;
 import ga.warixmods.agkm.item.ItemDemonsExtract;
 import ga.warixmods.agkm.item.ItemDemonsExtractWand;
 import ga.warixmods.agkm.item.ItemExtase;
-import ga.warixmods.agkm.item.ItemHonest;
+import ga.warixmods.agkm.item.ItemErastone;
 import ga.warixmods.agkm.item.ItemMastema;
 import ga.warixmods.agkm.item.ItemMastemaFeather;
 import ga.warixmods.agkm.item.ItemMurasame;
@@ -39,7 +41,7 @@ public class AkameItems {
 	public static Item belvaac_part_1;
 	public static Item belvaac_part_2;
 	public static Item perfector;
-	public static Item honest;
+	public static Item erastone;
 	public static Item mastema;
 	public static Item mastema_feather;
 	public static Item extase;
@@ -59,7 +61,7 @@ public class AkameItems {
 		belvaac_part_1 = new ItemBelvaacPart().setUnlocalizedName("belvaac_part_1").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
 		belvaac_part_2 = new ItemBelvaacPart().setUnlocalizedName("belvaac_part_2").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
 		perfector = new ItemPerfector().setUnlocalizedName("perfector").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
-		honest = new ItemHonest().setUnlocalizedName("honest").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
+		erastone = new ItemErastone().setUnlocalizedName("erastone").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
 		mastema = new ItemMastema(ArmorMaterial.IRON,1,1).setUnlocalizedName("mastema").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
 		mastema_feather  = new ItemMastemaFeather().setUnlocalizedName("mastema_feather").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
 		extase  = new ItemExtase(ToolMaterial.EMERALD).setUnlocalizedName("extase").setCreativeTab(AkameGaKill.tabAkame).setMaxStackSize(1);
@@ -80,7 +82,7 @@ public class AkameItems {
 		GameRegistry.registerItem(belvaac_part_1, belvaac_part_1.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(belvaac_part_2, belvaac_part_2.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(perfector, perfector.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(honest, honest.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(erastone, erastone.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(mastema, mastema.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(mastema_feather, mastema_feather.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(extase, extase.getUnlocalizedName().substring(5));
@@ -102,7 +104,7 @@ public class AkameItems {
 		registerRender(belvaac_part_1);
 		registerRender(belvaac_part_2);
 		registerRender(perfector);
-		registerRender(honest);
+		registerRender(erastone);
 		registerRender(mastema);
 		registerRender(mastema_feather);
 		registerRender(extase);

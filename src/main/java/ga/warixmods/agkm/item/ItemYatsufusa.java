@@ -1,8 +1,8 @@
 package ga.warixmods.agkm.item;
 
 import ga.warixmods.agkm.AkameGaKill;
-import ga.warixmods.agkm.entity.AI.copy.AttackOnCollidex;
-import ga.warixmods.agkm.entity.AI.copy.FindNearestNonHuman;
+
+
 import ga.warixmods.agkm.events.extendedproperties.EntityExtendedProperties;
 import ga.warixmods.agkm.init.AkameItems;
 import ga.warixmods.agkm.inventory.GuiYatsufusa;
@@ -21,7 +21,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-public class ItemYatsufusa extends ItemSword{
+
+
+
+public class ItemYatsufusa extends ItemTeiguSword
+
+{
 	public ItemYatsufusa(ToolMaterial material) {
 		super(material);
 		
@@ -45,7 +50,6 @@ public class ItemYatsufusa extends ItemSword{
 		   int[] id = new int[7];
 		   nbt.setIntArray("id", id);
 		   nbt.setInteger("idU",0);
-		   nbt.setString("Type", "Teigu");
 	   }	
     }
 	@Override
@@ -65,8 +69,7 @@ public class ItemYatsufusa extends ItemSword{
     			entity.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
     			entity.tasks.taskEntries.clear();
     			entity.targetTasks.taskEntries.clear();
-    			entity.tasks.addTask(4, new AttackOnCollidex((EntityCreature) entity, EntityLiving.class, 1.0D, true));
-    			entity.targetTasks.addTask(2, new FindNearestNonHuman((EntityCreature) entity, EntityLiving.class, true));
+    			
     		  	worldIn.spawnEntityInWorld(entity);
     		  	stack.getTagCompound().setInteger("idU",0);
     			  

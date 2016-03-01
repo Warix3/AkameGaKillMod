@@ -27,14 +27,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-public class ClientProxy extends CommonProxy {
+import net.minecraftforge.client.model.obj.OBJLoader;;
+public class ClientProxy extends ServerProxy {
 	public ClientProxy()
 	{
 		MinecraftForge.EVENT_BUS.register(new ForgeEventsClient());
 		
 	}
-	
+	@Override
 	public void registerRenders()
 	{
 		AkameItems.registerRenders();

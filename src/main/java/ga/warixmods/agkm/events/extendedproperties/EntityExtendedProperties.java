@@ -14,6 +14,7 @@ public class EntityExtendedProperties implements IExtendedEntityProperties
 	protected EntityLivingBase theEntity;
 	protected boolean isFrozen;
 	protected boolean isServant;
+	boolean shouldFly;
 	public final static String IEEP_NAME = "AGKMEPEntity";
 
 	public EntityExtendedProperties(){}
@@ -39,6 +40,7 @@ public class EntityExtendedProperties implements IExtendedEntityProperties
 		NBTTagCompound data = new NBTTagCompound();
 		data.setBoolean("isFrozen", this.isFrozen());
 		data.setBoolean("isServant", this.isServant());
+		data.setBoolean("shouldFly", this.shouldFly());
 		nbt.setTag(IEEP_NAME, data);
 
 	}
@@ -51,18 +53,26 @@ public class EntityExtendedProperties implements IExtendedEntityProperties
 		NBTTagCompound data = nbt.getCompoundTag(IEEP_NAME);
 		this.isFrozen = data.getBoolean("isFrozen");
 		this.isServant = data.getBoolean("isServant");
-
+		this.shouldFly = data.getBoolean("shouldFly");
 	}
 
 	@Override
 	public void init(Entity entity, World world)
 	{}
-
+	public boolean shouldFly()
+	{
+		return this.shouldFly;
+	}
+	public void setFly(boolean state)
+	{
+		this.shouldFly = state;
+	}
+	
 	public boolean isFrozen()
 	{
 		return this.isFrozen;
 	}
-
+	
 	public void setFrozen(boolean state)
 	{
 		this.isFrozen = state;

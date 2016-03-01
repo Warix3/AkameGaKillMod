@@ -2,25 +2,25 @@ package ga.warixmods.agkm.init;
 
 import ga.warixmods.agkm.AkameGaKill;
 import ga.warixmods.agkm.Reference;
-import ga.warixmods.agkm.blocks.BlockInit;
 import ga.warixmods.agkm.blocks.GcKeyBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class AkameBlocks {
 
-	public static Block test_block;
 	public static Block gckey_stab;
 	public static void init()
 	{
 		gckey_stab = new GcKeyBlock(Material.sand).setUnlocalizedName("gckey_stab").setCreativeTab(AkameGaKill.tabAkame);
+		 
 	}
 	public static void register()
 	{
@@ -32,6 +32,7 @@ public class AkameBlocks {
 	{
 	registerRender(gckey_stab);
 	}
+
 	public static void registerRender(Block block)
 	{
 	Item item = Item.getItemFromBlock(block);

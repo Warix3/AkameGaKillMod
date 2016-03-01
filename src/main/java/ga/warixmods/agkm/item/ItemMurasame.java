@@ -1,6 +1,8 @@
 package ga.warixmods.agkm.item;
 
-import ga.warixmods.agkm.potion.PotionEffect2;
+import java.util.List;
+
+import ga.warixmods.agkm.potion.MurasameEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
@@ -14,48 +16,32 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMurasame extends ItemSword {
+public class ItemMurasame extends ItemTeiguSword {
 
 	public ItemMurasame(ToolMaterial material) {
 		super(material);
-		// TODO Auto-generated constructor stub
-		
-		
+		this.bFull3D = true;
 	}
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (!stack.hasTagCompound()) {
-			NBTTagCompound nbt = new NBTTagCompound();
-			stack.setTagCompound(nbt);
-			nbt.setString("Type", "Teigu");
-		}
-		}
+	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
     {
-		
 			if(entity instanceof EntityLivingBase)
-			{
-		((EntityLivingBase) entity).addPotionEffect(new PotionEffect2(19, 2000,2000));
-		
-		 if(((EntityLivingBase) entity).getHealth() <= 2.0F)
-         {
-         	entity.attackEntityFrom(DamageSource.generic, 1.0F);
-         
-		}}
-		 
-        return false;
+				((EntityLivingBase) entity).addPotionEffect(new MurasameEffect(19, 2000,2000));
+            return false;
     }
+	
 	@Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer playerIn,List toolTip,boolean advanced)
     {
-		
-        stack.damageItem(1, attacker);
-        return true;
+    	toolTip.add("\u00A7c\u00A7oOne-Cut Killer: Murasame");
+    	toolTip.add("\u00A74Murasame is a poisonous blade that can kill");   
+    	toolTip.add("\u00A74a person with only one cut. Once the");
+    	toolTip.add("\u00A74sword pierces skin, it injects a lethal poison");
+    	toolTip.add("\u00A74into the victim, killing them within seconds");  
+    	toolTip.add("\u00A74However, this ability only works on living,");
+    	toolTip.add("\u00A74organic beings that have a heart, rendering it ");
+    	toolTip.add("\u00A74ineffective against Mechanical Monsters.");
     }
-	 @SideOnly(Side.CLIENT)
-	    public boolean isFull3D()
-	    {
-	        return true;
-	    }
 }

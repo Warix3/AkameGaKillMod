@@ -5,7 +5,9 @@ import ga.warixmods.agkm.init.AkameBlocks;
 import ga.warixmods.agkm.init.AkameEntities;
 import ga.warixmods.agkm.init.AkameItems;
 import ga.warixmods.agkm.proxy.ClientProxy;
-import ga.warixmods.agkm.proxy.CommonProxy;
+import ga.warixmods.agkm.proxy.ServerProxy;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +21,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version=Reference.VERSION)
-
 public class AkameGaKill {
 	public static final AkameTab tabAkame= new AkameTab("tabAkame");
 	public static SimpleNetworkWrapper network;
@@ -27,10 +28,11 @@ public class AkameGaKill {
     @Instance (value = Reference.MOD_ID)
     public static AkameGaKill instance;
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-	public static CommonProxy proxy;
+	public static ServerProxy proxy;
 	public static ClientProxy clientProxy;
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		
 		
 		network = NetworkRegistry.INSTANCE.newSimpleChannel("AGKMServer");
 		network.registerMessage(SendPacketToServer.Handler.class, SendPacketToServer.class, 0, Side.SERVER);
@@ -50,8 +52,9 @@ public class AkameGaKill {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-
+		proxy.registerRenders();
 	}
 	
 	@EventHandler

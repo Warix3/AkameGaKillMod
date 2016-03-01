@@ -6,15 +6,10 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemMastema extends ItemArmor{
+public class ItemMastema extends ItemTeiguArmor{
 
 	public ItemMastema(ArmorMaterial material, int renderIndex, int armorType) {
 		super(material, renderIndex, armorType);
 		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
-	{
-		player.capabilities.allowFlying = true;
 	}
 }

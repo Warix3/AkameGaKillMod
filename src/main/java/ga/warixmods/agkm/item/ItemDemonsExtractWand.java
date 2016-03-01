@@ -24,60 +24,66 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemDemonsExtractWand extends Item {
+public class ItemDemonsExtractWand extends ItemTeigu {
 
 	IBlockState ice = Blocks.ice.getDefaultState();
 	IBlockState packed_ice = Blocks.packed_ice.getDefaultState();
 	
 	@SideOnly(Side.CLIENT)
-	public boolean isFull3D() {
-		return true;
-	}@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (!stack.hasTagCompound()) {
-			NBTTagCompound nbt = new NBTTagCompound();
-			stack.setTagCompound(nbt);
-			nbt.setInteger("id", 0);
-			nbt.setString("Type", "Teigu");
+	public boolean isFull3D() {return true;}
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	{
+		if(!stack.hasTagCompound())
+		{
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setInteger("id", 0);
+		stack.setTagCompound(nbt);
 		}
-	}@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
+	}
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) 
+	{
 		if (!playerIn.isSneaking()) {
 			
         if(itemStackIn.getTagCompound().getInteger("id") == 0)
         	iceShards(itemStackIn, worldIn, playerIn);
         
-		} else 
+		}
+		else 
 			playerIn.openGui(AkameGaKill.instance, GuiWand.GUI_ID, worldIn, 0, 0, 0);
 		return itemStackIn;
 	}
-	public boolean onItemUse(ItemStack itemStackIn, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!playerIn.isSneaking()) {
-			switch (itemStackIn.getTagCompound().getInteger("id")) {
+	
+	public boolean onItemUse(ItemStack itemStackIn, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) 
+	{
+		if (!playerIn.isSneaking()) 
+		{
+			switch (itemStackIn.getTagCompound().getInteger("id")) 
+			{
 				case 1:
 					buildIce(itemStackIn, playerIn, worldIn, pos, side, hitZ, hitZ, hitZ);
 					break;
 				case 2:
 					freezeWater(itemStackIn, playerIn, worldIn);
 			}
-
-
-		} else {
+		} 
+		else 
 			playerIn.openGui(AkameGaKill.instance, GuiWand.GUI_ID, worldIn, 0, 0, 0);
-		}
 		return false;
-
 	}
+	
 	//on item right click
-	public void iceShards(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
+	public void iceShards(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) 
+	{
 		worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-		if (!worldIn.isRemote) {
+		if (!worldIn.isRemote) 
 			worldIn.spawnEntityInWorld(new EntityIceShards(worldIn, playerIn));
-		}
 	}
+	
 	//on item right click on block
-	public void freezeWater(ItemStack stack, EntityPlayer playerIn, World worldIn) {
-
+	public void freezeWater(ItemStack stack, EntityPlayer playerIn, World worldIn) 
+	{
 		boolean isEmpty = true;
 		MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, isEmpty);
 		if (movingobjectposition != null) {
@@ -160,7 +166,8 @@ public class ItemDemonsExtractWand extends Item {
 		}
 	}
 
-	public void buildIce(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public void buildIce(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) 
+	{
 		if (!worldIn.isRemote) {
 			worldIn.setBlockState(pos.up(), getRandomState(ice, packed_ice));
 			worldIn.setBlockState(pos.down(), getRandomState(ice, packed_ice));
@@ -176,25 +183,19 @@ public class ItemDemonsExtractWand extends Item {
 		worldIn.markBlockForUpdate(pos.north());
 		worldIn.markBlockForUpdate(pos.south());
 	}
-	private IBlockState getRandomState(IBlockState state1, IBlockState state2) {
-		if (new Random().nextInt(100) > 50) {
+	
+	private IBlockState getRandomState(IBlockState state1, IBlockState state2) 
+	{
+		if (new Random().nextInt(100) > 50) 
 			return state1;
-		} else {
 			return state2;
-		}
-
 	}
 
-
-	private boolean isWater(BlockPos pos, World worldIn) {
-		IBlockState iblockstate = worldIn.getBlockState(pos);
-		Material material = iblockstate.getBlock().getMaterial();
-		if (material == Material.water && ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0) {
+	private boolean isWater(BlockPos pos, World worldIn) 
+	{
+		if (worldIn.getBlockState(pos).getBlock().getMaterial() == Material.water && ((Integer) worldIn.getBlockState(pos).getValue(BlockLiquid.LEVEL)).intValue() == 0) 
 			return true;
-		} else {
 			return false;
-		}
-
 	}
 
 

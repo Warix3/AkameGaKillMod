@@ -11,20 +11,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBelvaac extends ItemSword{
+public class ItemBelvaac extends ItemTeiguSword{
 
 	public ItemBelvaac(ToolMaterial material) {
 		super(material);
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (!stack.hasTagCompound()) {
-			NBTTagCompound nbt = new NBTTagCompound();
-			stack.setTagCompound(nbt);
-			nbt.setString("Type", "Teigu");
-		}
-		}
+
 	 @Override
 	 public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	    {

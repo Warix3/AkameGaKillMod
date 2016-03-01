@@ -2,8 +2,7 @@ package ga.warixmods.agkm.events;
 
 import java.util.Iterator;
 import java.util.Random;
-
-import com.google.common.eventbus.Subscribe;
+import java.util.UUID;
 
 import ga.warixmods.agkm.AkameGaKill;
 import ga.warixmods.agkm.SendPacketToClient;
@@ -13,13 +12,25 @@ import ga.warixmods.agkm.entity.projectile.EntityRocket;
 import ga.warixmods.agkm.entity.special.EntityRocketLauncher;
 import ga.warixmods.agkm.events.extendedproperties.EntityExtendedProperties;
 import ga.warixmods.agkm.init.AkameItems;
+import ga.warixmods.agkm.item.ItemDemonsExtractWand;
+import ga.warixmods.agkm.item.ItemErastone;
+import ga.warixmods.agkm.item.ItemMastema;
+import ga.warixmods.agkm.item.ItemPerfector;
+import ga.warixmods.agkm.item.ItemTeigu;
+import ga.warixmods.agkm.item.ItemTeiguArmor;
+import ga.warixmods.agkm.item.ItemTeiguFood;
+import ga.warixmods.agkm.item.ItemTeiguSword;
 import ga.warixmods.agkm.item.ItemYatsufusa;
+import ga.warixmods.agkm.item.ItemgcArmor;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ClassInheritanceMultiMap;
@@ -76,25 +87,24 @@ public class ForgeEvents
 		if(event.entityPlayer.getHeldItem() != null)
 		{
 			
-		//Honest
-		if(event.entityPlayer.getHeldItem().getItem() == AkameItems.honest)
+		//Erastone
+		if(event.entityPlayer.getHeldItem().getItem() instanceof ItemErastone)
 		{
 			if (event.target instanceof EntityPlayer)
 			{
 				EntityPlayer player = (EntityPlayer) event.target;
-				NBTTagCompound nbt = player.getHeldItem().getTagCompound();
-				if(nbt.getString("Type").equals("Teigu"))
-				{
-				player.destroyCurrentEquippedItem();
+				Item heldItem = player.getHeldItem().getItem();
+				
+				if (heldItem instanceof ItemTeigu || heldItem instanceof ItemTeiguArmor || heldItem instanceof ItemTeiguFood || heldItem instanceof ItemTeiguSword)
 				event.entityPlayer.destroyCurrentEquippedItem();
-				}
 			}
 		}
 			
 			
 		//Demons extract wand
-		if (event.entityPlayer.getHeldItem().getItem() == AkameItems.demons_extract_wand) {
-			if (event.target instanceof EntityLivingBase) {
+		if (event.entityPlayer.getHeldItem().getItem() instanceof ItemDemonsExtractWand) {
+			
+			if (event.target instanceof EntityLivingBase && event.entityPlayer.getHeldItem().getTagCompound() != null && event.entityPlayer.getHeldItem().getTagCompound().getInteger("id") == 3) {
 				EntityExtendedProperties.get((EntityLivingBase) event.target).setFrozen(true);
 				if(event.target instanceof EntityLiving)
 				{
@@ -103,7 +113,7 @@ public class ForgeEvents
 			}
 		}
 		//Perfector
-		if (event.entityPlayer.getHeldItem().getItem() == AkameItems.perfector) {
+		if (event.entityPlayer.getHeldItem().getItem() instanceof ItemPerfector) {
 			if (event.target instanceof EntityLiving) {
 				EntityLiving living = (EntityLiving) event.target;
 
@@ -248,21 +258,56 @@ public class ForgeEvents
 	@SubscribeEvent
 	public void LivingUpdateEvent(LivingUpdateEvent event)
 	{
-		//Mastema
 		if(event.entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer) event.entity; 
-			if(player.getCurrentArmor(2) != null && player.getCurrentArmor(2).getItem() == AkameItems.mastema)
-			{
-				player.capabilities.allowFlying = true;
-			}
-			else if (!player.capabilities.isCreativeMode)
-			{
-				player.capabilities.allowFlying = false;
-				player.capabilities.isFlying = false;
-			}
+			boolean hasGC = false;
+			boolean hasMastema = false;
 			
+			AttributeModifier modify = new AttributeModifier(UUID.fromString("92AEAA56-375B-4498-935B-2F7F58070635"), "Test", 2, 2);
+			AttributeModifier modify2 = new AttributeModifier(UUID.fromString("45AEAA45-455B-6798-585B-4F5F58043519"), "Test2", 2, 2);
+				if(((player.inventory.armorInventory[0] != null && player.inventory.armorInventory[0].getItem() instanceof ItemgcArmor) && (player.inventory.armorInventory[1] != null && player.inventory.armorInventory[1].getItem() instanceof ItemgcArmor)&&(player.inventory.armorInventory[2] != null && player.inventory.armorInventory[2].getItem() instanceof ItemgcArmor)&&(player.inventory.armorInventory[3] != null && player.inventory.armorInventory[3].getItem() instanceof ItemgcArmor)))
+				{
+					EntityExtendedProperties.get(player).setFly(true);
+					if(!player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).hasModifier(modify))
+					{
+						player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).applyModifier(modify);
+					}
+					
+					if(!player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).hasModifier(modify2))
+					{
+						player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).applyModifier(modify2);
+					}
+					
+					
+					hasGC = true;
+				}
+				else
+				{
+					
+					player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).removeModifier(modify);
+					player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).removeModifier(modify2);
+					
+				}
+				if(player.inventory.armorInventory[2] != null && player.inventory.armorInventory[2].getItem() instanceof ItemMastema)
+				{
+					EntityExtendedProperties.get(player).setFly(true);
+					hasMastema = true;
+				}
+				if(!(hasGC || hasMastema))
+				{
+					EntityExtendedProperties.get(player).setFly(false);
+				}
+				
+				if (!EntityExtendedProperties.get(player).shouldFly() && !player.capabilities.isCreativeMode)
+				{
+					player.capabilities.allowFlying = false;
+					player.capabilities.isFlying = false;
+			    }
+				else
+				{
+					player.capabilities.allowFlying = true;
+				}
 		}
 	}
-	
 }
